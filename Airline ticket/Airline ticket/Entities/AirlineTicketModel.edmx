@@ -1,0 +1,469 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Airline_ticketModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AirplanePilots">
+          <Key>
+            <PropertyRef Name="IdAirplanePilot" />
+          </Key>
+          <Property Name="IdAirplanePilot" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PilotsId" Type="int" Nullable="false" />
+          <Property Name="AirplanesId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Airplanes">
+          <Key>
+            <PropertyRef Name="IdAirplane" />
+          </Key>
+          <Property Name="IdAirplane" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name of Airplane" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Passengers' count" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Cities">
+          <Key>
+            <PropertyRef Name="IdCity" />
+          </Key>
+          <Property Name="IdCity" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="From City" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="To City" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FlightTypes">
+          <Key>
+            <PropertyRef Name="IdFlightType" />
+          </Key>
+          <Property Name="IdFlightType" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Flight Type" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Pilots">
+          <Key>
+            <PropertyRef Name="IdPilot" />
+          </Key>
+          <Property Name="IdPilot" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Pilots name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Pilots surname" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Schedules">
+          <Key>
+            <PropertyRef Name="IdSchedule" />
+          </Key>
+          <Property Name="IdSchedule" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Date In" Type="datetime" Nullable="false" />
+          <Property Name="Date out" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tickets">
+          <Key>
+            <PropertyRef Name="IdTicket" />
+          </Key>
+          <Property Name="IdTicket" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Code of Ticket" Type="nvarchar(max)" />
+          <Property Name="FlightTypesId" Type="int" Nullable="false" />
+          <Property Name="SchedulesId" Type="int" Nullable="false" />
+          <Property Name="AirplanePilotsId" Type="int" Nullable="false" />
+          <Property Name="CitiesId" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_AirplaneId">
+          <End Role="Airplanes" Type="Self.Airplanes" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AirplanePilots" Type="Self.AirplanePilots" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Airplanes">
+              <PropertyRef Name="IdAirplane" />
+            </Principal>
+            <Dependent Role="AirplanePilots">
+              <PropertyRef Name="AirplanesId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AirplanePilotsId">
+          <End Role="AirplanePilots" Type="Self.AirplanePilots" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Tickets" Type="Self.Tickets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AirplanePilots">
+              <PropertyRef Name="IdAirplanePilot" />
+            </Principal>
+            <Dependent Role="Tickets">
+              <PropertyRef Name="AirplanePilotsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CitiesId">
+          <End Role="Cities" Type="Self.Cities" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Tickets" Type="Self.Tickets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cities">
+              <PropertyRef Name="IdCity" />
+            </Principal>
+            <Dependent Role="Tickets">
+              <PropertyRef Name="CitiesId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FlightTypeId">
+          <End Role="FlightTypes" Type="Self.FlightTypes" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Tickets" Type="Self.Tickets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FlightTypes">
+              <PropertyRef Name="IdFlightType" />
+            </Principal>
+            <Dependent Role="Tickets">
+              <PropertyRef Name="FlightTypesId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PilotId">
+          <End Role="Pilots" Type="Self.Pilots" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AirplanePilots" Type="Self.AirplanePilots" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pilots">
+              <PropertyRef Name="IdPilot" />
+            </Principal>
+            <Dependent Role="AirplanePilots">
+              <PropertyRef Name="PilotsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SchedulesId">
+          <End Role="Schedules" Type="Self.Schedules" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Tickets" Type="Self.Tickets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Schedules">
+              <PropertyRef Name="IdSchedule" />
+            </Principal>
+            <Dependent Role="Tickets">
+              <PropertyRef Name="SchedulesId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Airline_ticketModelStoreContainer">
+          <EntitySet Name="AirplanePilots" EntityType="Self.AirplanePilots" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Airplanes" EntityType="Self.Airplanes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cities" EntityType="Self.Cities" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FlightTypes" EntityType="Self.FlightTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pilots" EntityType="Self.Pilots" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Schedules" EntityType="Self.Schedules" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tickets" EntityType="Self.Tickets" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_AirplaneId" Association="Self.FK_AirplaneId">
+            <End Role="Airplanes" EntitySet="Airplanes" />
+            <End Role="AirplanePilots" EntitySet="AirplanePilots" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AirplanePilotsId" Association="Self.FK_AirplanePilotsId">
+            <End Role="AirplanePilots" EntitySet="AirplanePilots" />
+            <End Role="Tickets" EntitySet="Tickets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CitiesId" Association="Self.FK_CitiesId">
+            <End Role="Cities" EntitySet="Cities" />
+            <End Role="Tickets" EntitySet="Tickets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FlightTypeId" Association="Self.FK_FlightTypeId">
+            <End Role="FlightTypes" EntitySet="FlightTypes" />
+            <End Role="Tickets" EntitySet="Tickets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PilotId" Association="Self.FK_PilotId">
+            <End Role="Pilots" EntitySet="Pilots" />
+            <End Role="AirplanePilots" EntitySet="AirplanePilots" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SchedulesId" Association="Self.FK_SchedulesId">
+            <End Role="Schedules" EntitySet="Schedules" />
+            <End Role="Tickets" EntitySet="Tickets" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Airline_ticketModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AirplanePilot">
+          <Key>
+            <PropertyRef Name="IdAirplanePilot" />
+          </Key>
+          <Property Name="IdAirplanePilot" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PilotsId" Type="Int32" Nullable="false" />
+          <Property Name="AirplanesId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Airplane" Relationship="Self.FK_AirplaneId" FromRole="AirplanePilots" ToRole="Airplanes" />
+          <NavigationProperty Name="Tickets" Relationship="Self.FK_AirplanePilotsId" FromRole="AirplanePilots" ToRole="Tickets" />
+          <NavigationProperty Name="Pilot" Relationship="Self.FK_PilotId" FromRole="AirplanePilots" ToRole="Pilots" />
+        </EntityType>
+        <EntityType Name="Airplane">
+          <Key>
+            <PropertyRef Name="IdAirplane" />
+          </Key>
+          <Property Name="IdAirplane" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name_of_Airplane" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Passengers__count" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="AirplanePilots" Relationship="Self.FK_AirplaneId" FromRole="Airplanes" ToRole="AirplanePilots" />
+        </EntityType>
+        <EntityType Name="City">
+          <Key>
+            <PropertyRef Name="IdCity" />
+          </Key>
+          <Property Name="IdCity" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="From_City" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="To_City" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Tickets" Relationship="Self.FK_CitiesId" FromRole="Cities" ToRole="Tickets" />
+        </EntityType>
+        <EntityType Name="FlightType">
+          <Key>
+            <PropertyRef Name="IdFlightType" />
+          </Key>
+          <Property Name="IdFlightType" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Flight_Type" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Tickets" Relationship="Self.FK_FlightTypeId" FromRole="FlightTypes" ToRole="Tickets" />
+        </EntityType>
+        <EntityType Name="Pilot">
+          <Key>
+            <PropertyRef Name="IdPilot" />
+          </Key>
+          <Property Name="IdPilot" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Pilots_name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Pilots_surname" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AirplanePilots" Relationship="Self.FK_PilotId" FromRole="Pilots" ToRole="AirplanePilots" />
+        </EntityType>
+        <EntityType Name="Schedule">
+          <Key>
+            <PropertyRef Name="IdSchedule" />
+          </Key>
+          <Property Name="IdSchedule" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Date_In" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Date_out" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Tickets" Relationship="Self.FK_SchedulesId" FromRole="Schedules" ToRole="Tickets" />
+        </EntityType>
+        <EntityType Name="Ticket">
+          <Key>
+            <PropertyRef Name="IdTicket" />
+          </Key>
+          <Property Name="IdTicket" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code_of_Ticket" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FlightTypesId" Type="Int32" Nullable="false" />
+          <Property Name="SchedulesId" Type="Int32" Nullable="false" />
+          <Property Name="AirplanePilotsId" Type="Int32" Nullable="false" />
+          <Property Name="CitiesId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AirplanePilot" Relationship="Self.FK_AirplanePilotsId" FromRole="Tickets" ToRole="AirplanePilots" />
+          <NavigationProperty Name="City" Relationship="Self.FK_CitiesId" FromRole="Tickets" ToRole="Cities" />
+          <NavigationProperty Name="FlightType" Relationship="Self.FK_FlightTypeId" FromRole="Tickets" ToRole="FlightTypes" />
+          <NavigationProperty Name="Schedule" Relationship="Self.FK_SchedulesId" FromRole="Tickets" ToRole="Schedules" />
+        </EntityType>
+        <Association Name="FK_AirplaneId">
+          <End Role="Airplanes" Type="Self.Airplane" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AirplanePilots" Type="Self.AirplanePilot" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Airplanes">
+              <PropertyRef Name="IdAirplane" />
+            </Principal>
+            <Dependent Role="AirplanePilots">
+              <PropertyRef Name="AirplanesId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AirplanePilotsId">
+          <End Role="AirplanePilots" Type="Self.AirplanePilot" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Tickets" Type="Self.Ticket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AirplanePilots">
+              <PropertyRef Name="IdAirplanePilot" />
+            </Principal>
+            <Dependent Role="Tickets">
+              <PropertyRef Name="AirplanePilotsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PilotId">
+          <End Role="Pilots" Type="Self.Pilot" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AirplanePilots" Type="Self.AirplanePilot" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pilots">
+              <PropertyRef Name="IdPilot" />
+            </Principal>
+            <Dependent Role="AirplanePilots">
+              <PropertyRef Name="PilotsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CitiesId">
+          <End Role="Cities" Type="Self.City" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Tickets" Type="Self.Ticket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cities">
+              <PropertyRef Name="IdCity" />
+            </Principal>
+            <Dependent Role="Tickets">
+              <PropertyRef Name="CitiesId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FlightTypeId">
+          <End Role="FlightTypes" Type="Self.FlightType" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Tickets" Type="Self.Ticket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FlightTypes">
+              <PropertyRef Name="IdFlightType" />
+            </Principal>
+            <Dependent Role="Tickets">
+              <PropertyRef Name="FlightTypesId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SchedulesId">
+          <End Role="Schedules" Type="Self.Schedule" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Tickets" Type="Self.Ticket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Schedules">
+              <PropertyRef Name="IdSchedule" />
+            </Principal>
+            <Dependent Role="Tickets">
+              <PropertyRef Name="SchedulesId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Airline_ticketEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AirplanePilots" EntityType="Self.AirplanePilot" />
+          <EntitySet Name="Airplanes" EntityType="Self.Airplane" />
+          <EntitySet Name="Cities" EntityType="Self.City" />
+          <EntitySet Name="FlightTypes" EntityType="Self.FlightType" />
+          <EntitySet Name="Pilots" EntityType="Self.Pilot" />
+          <EntitySet Name="Schedules" EntityType="Self.Schedule" />
+          <EntitySet Name="Tickets" EntityType="Self.Ticket" />
+          <AssociationSet Name="FK_AirplaneId" Association="Self.FK_AirplaneId">
+            <End Role="Airplanes" EntitySet="Airplanes" />
+            <End Role="AirplanePilots" EntitySet="AirplanePilots" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AirplanePilotsId" Association="Self.FK_AirplanePilotsId">
+            <End Role="AirplanePilots" EntitySet="AirplanePilots" />
+            <End Role="Tickets" EntitySet="Tickets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PilotId" Association="Self.FK_PilotId">
+            <End Role="Pilots" EntitySet="Pilots" />
+            <End Role="AirplanePilots" EntitySet="AirplanePilots" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CitiesId" Association="Self.FK_CitiesId">
+            <End Role="Cities" EntitySet="Cities" />
+            <End Role="Tickets" EntitySet="Tickets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FlightTypeId" Association="Self.FK_FlightTypeId">
+            <End Role="FlightTypes" EntitySet="FlightTypes" />
+            <End Role="Tickets" EntitySet="Tickets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SchedulesId" Association="Self.FK_SchedulesId">
+            <End Role="Schedules" EntitySet="Schedules" />
+            <End Role="Tickets" EntitySet="Tickets" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Airline_ticketModelStoreContainer" CdmEntityContainer="Airline_ticketEntities1">
+          <EntitySetMapping Name="AirplanePilots">
+            <EntityTypeMapping TypeName="Airline_ticketModel.AirplanePilot">
+              <MappingFragment StoreEntitySet="AirplanePilots">
+                <ScalarProperty Name="IdAirplanePilot" ColumnName="IdAirplanePilot" />
+                <ScalarProperty Name="PilotsId" ColumnName="PilotsId" />
+                <ScalarProperty Name="AirplanesId" ColumnName="AirplanesId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Airplanes">
+            <EntityTypeMapping TypeName="Airline_ticketModel.Airplane">
+              <MappingFragment StoreEntitySet="Airplanes">
+                <ScalarProperty Name="IdAirplane" ColumnName="IdAirplane" />
+                <ScalarProperty Name="Name_of_Airplane" ColumnName="Name of Airplane" />
+                <ScalarProperty Name="Passengers__count" ColumnName="Passengers' count" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cities">
+            <EntityTypeMapping TypeName="Airline_ticketModel.City">
+              <MappingFragment StoreEntitySet="Cities">
+                <ScalarProperty Name="IdCity" ColumnName="IdCity" />
+                <ScalarProperty Name="From_City" ColumnName="From City" />
+                <ScalarProperty Name="To_City" ColumnName="To City" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FlightTypes">
+            <EntityTypeMapping TypeName="Airline_ticketModel.FlightType">
+              <MappingFragment StoreEntitySet="FlightTypes">
+                <ScalarProperty Name="IdFlightType" ColumnName="IdFlightType" />
+                <ScalarProperty Name="Flight_Type" ColumnName="Flight Type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pilots">
+            <EntityTypeMapping TypeName="Airline_ticketModel.Pilot">
+              <MappingFragment StoreEntitySet="Pilots">
+                <ScalarProperty Name="IdPilot" ColumnName="IdPilot" />
+                <ScalarProperty Name="Pilots_name" ColumnName="Pilots name" />
+                <ScalarProperty Name="Pilots_surname" ColumnName="Pilots surname" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Schedules">
+            <EntityTypeMapping TypeName="Airline_ticketModel.Schedule">
+              <MappingFragment StoreEntitySet="Schedules">
+                <ScalarProperty Name="IdSchedule" ColumnName="IdSchedule" />
+                <ScalarProperty Name="Date_In" ColumnName="Date In" />
+                <ScalarProperty Name="Date_out" ColumnName="Date out" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tickets">
+            <EntityTypeMapping TypeName="Airline_ticketModel.Ticket">
+              <MappingFragment StoreEntitySet="Tickets">
+                <ScalarProperty Name="IdTicket" ColumnName="IdTicket" />
+                <ScalarProperty Name="Code_of_Ticket" ColumnName="Code of Ticket" />
+                <ScalarProperty Name="FlightTypesId" ColumnName="FlightTypesId" />
+                <ScalarProperty Name="SchedulesId" ColumnName="SchedulesId" />
+                <ScalarProperty Name="AirplanePilotsId" ColumnName="AirplanePilotsId" />
+                <ScalarProperty Name="CitiesId" ColumnName="CitiesId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

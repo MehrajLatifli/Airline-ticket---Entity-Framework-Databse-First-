@@ -1,0 +1,160 @@
+﻿<Window x:Class="Airline_ticket.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Airline_ticket"
+        mc:Ignorable="d"
+        Title="Airline Ticket" Height="800" Width="1600" Background="Bisque">
+
+    <DockPanel>
+        <Grid>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*"></RowDefinition>
+                <RowDefinition Height="1*"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <ListView Background="DeepSkyBlue" x:Name="fulldatalistview" Grid.Row="0"  ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Visible" Visibility="Visible">
+
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Id" Width="40" >
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Padding="5,2" Text="{Binding IdTicket, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontWeight="Black"></TextBlock>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Code of Ticket" Width="150">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Padding="5,2" Text="{Binding Code_of_Ticket, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  FontWeight="Black" ></TextBlock>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Pilot's name" Width="175">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Padding="5,2" Text="{Binding AirplanePilot.Pilot.Pilots_name, Mode=TwoWay}"  FontWeight="Black" ></TextBlock>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Pilot's surname" Width="150">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Padding="5,2" Text="{Binding AirplanePilot.Pilot.Pilots_surname, Mode=TwoWay}" FontWeight="Black"></TextBlock>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Flight Type" Width="100">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Padding="5,2" Text="{Binding FlightType.Flight_Type, Mode=TwoWay}"  FontWeight="Black" ></TextBlock>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Date In" Width="175">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Padding="5,2" Text="{Binding Schedule.Date_In, Mode=TwoWay}"  FontWeight="Black" ></TextBlock>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Date out" Width="175">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Padding="5,2" Text="{Binding Schedule.Date_out, Mode=TwoWay}"  FontWeight="Black" ></TextBlock>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Name of Airplane" Width="125">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Padding="5,2" Text="{Binding AirplanePilot.Airplane.Name_of_Airplane, Mode=TwoWay}"  FontWeight="Black" ></TextBlock>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Passengers' count" Width="150">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Padding="5,2" Text="{Binding AirplanePilot.Airplane.Passengers__count, Mode=TwoWay}"  FontWeight="Black" ></TextBlock>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="From City" Width="150">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Padding="5,2" Text="{Binding City.From_City, Mode=TwoWay}"  FontWeight="Black" ></TextBlock>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="To City" Width="150">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Padding="5,2" Text="{Binding City.To_City, Mode=TwoWay}"  FontWeight="Black" ></TextBlock>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+
+                    </GridView>
+                </ListView.View>
+
+            </ListView>
+
+            <Grid x:Name="ControllerGrid" Grid.Row="1">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"></RowDefinition>
+                    <RowDefinition Height="1*"></RowDefinition>
+
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <ComboBox x:Name="FlightTypeComboBox" Grid.Row="0" Grid.Column="0" Padding="10,10,10,10" Margin="20" Foreground="DeepSkyBlue" FontSize="45" FontWeight="Bold" >
+                    <ComboBox.ToolTip>
+                        <TextBlock Text="Select FlightType" Padding="5" Margin="1" Background="DeepSkyBlue" Foreground="Bisque"></TextBlock>
+                    </ComboBox.ToolTip>
+                </ComboBox>
+
+                <ComboBox x:Name="CityComboBox" Grid.Row="0" Grid.Column="1" Padding="10,30,10,10" Margin="20" Foreground="DeepSkyBlue" FontSize="25" FontWeight="Bold" >
+                    <ComboBox.ToolTip>
+                        <TextBlock Text="Select City" Padding="5" Margin="1" Background="DeepSkyBlue" Foreground="Bisque"></TextBlock>
+                    </ComboBox.ToolTip>
+                </ComboBox>
+
+                <ComboBox x:Name="AirplaneComboBox" Grid.Row="0" Grid.Column="2" Padding="10,30,10,10" Margin="20" Foreground="DeepSkyBlue" FontSize="25" FontWeight="Bold" >
+                    <ComboBox.ToolTip>
+                        <TextBlock Text="Select To Airplane" Padding="5" Margin="1" Background="DeepSkyBlue" Foreground="Bisque"></TextBlock>
+                    </ComboBox.ToolTip>
+                </ComboBox>
+
+                <ComboBox x:Name="ScheduleComboBox" Grid.Row="0" Grid.Column="3" Padding="10,30,10,10" Margin="20" Foreground="DeepSkyBlue" FontSize="15" FontWeight="Bold" >
+                    <ComboBox.ToolTip>
+                        <TextBlock Text="Select To Schedule" Padding="5" Margin="1" Background="DeepSkyBlue" Foreground="Bisque"></TextBlock>
+                    </ComboBox.ToolTip>
+                </ComboBox>
+
+                <ComboBox x:Name="PilotComboBox" Grid.Row="1" Grid.Column="0" Padding="10,30,10,10" Margin="20" Foreground="DeepSkyBlue" FontSize="20" FontWeight="Bold" >
+                    <ComboBox.ToolTip>
+                        <TextBlock Text="Select To Pilot" Padding="5" Margin="1" Background="DeepSkyBlue" Foreground="Bisque"></TextBlock>
+                    </ComboBox.ToolTip>
+                </ComboBox>
+
+                <Button Grid.Row="1" Grid.Column="1" x:Name="AddButton" Padding="5" Margin="20" Content="Add" FontSize="45" FontWeight="Bold" Foreground="DeepSkyBlue"  Click="AddButton_Click"></Button>
+
+                <Button Grid.Row="1" Grid.Column="2" x:Name="UpdateButton" Padding="5" Margin="20" Content="Update" FontSize="45" FontWeight="Bold" Foreground="DeepSkyBlue"  Click="UpdateButton_Click"></Button>
+
+                <Button Grid.Row="1" Grid.Column="3" x:Name="DeleteButton" Padding="5" Margin="20" Content="Delete" FontSize="45" FontWeight="Bold" Foreground="DeepSkyBlue" Click="DeleteButton_Click"></Button>
+
+            </Grid>
+        </Grid>
+    </DockPanel>
+</Window>

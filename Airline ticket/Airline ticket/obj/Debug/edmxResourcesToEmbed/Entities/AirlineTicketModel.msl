@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Airline_ticketModelStoreContainer" CdmEntityContainer="Airline_ticketEntities1">
+    <EntitySetMapping Name="AirplanePilots">
+      <EntityTypeMapping TypeName="Airline_ticketModel.AirplanePilot">
+        <MappingFragment StoreEntitySet="AirplanePilots">
+          <ScalarProperty Name="IdAirplanePilot" ColumnName="IdAirplanePilot" />
+          <ScalarProperty Name="PilotsId" ColumnName="PilotsId" />
+          <ScalarProperty Name="AirplanesId" ColumnName="AirplanesId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Airplanes">
+      <EntityTypeMapping TypeName="Airline_ticketModel.Airplane">
+        <MappingFragment StoreEntitySet="Airplanes">
+          <ScalarProperty Name="IdAirplane" ColumnName="IdAirplane" />
+          <ScalarProperty Name="Name_of_Airplane" ColumnName="Name of Airplane" />
+          <ScalarProperty Name="Passengers__count" ColumnName="Passengers' count" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Cities">
+      <EntityTypeMapping TypeName="Airline_ticketModel.City">
+        <MappingFragment StoreEntitySet="Cities">
+          <ScalarProperty Name="IdCity" ColumnName="IdCity" />
+          <ScalarProperty Name="From_City" ColumnName="From City" />
+          <ScalarProperty Name="To_City" ColumnName="To City" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FlightTypes">
+      <EntityTypeMapping TypeName="Airline_ticketModel.FlightType">
+        <MappingFragment StoreEntitySet="FlightTypes">
+          <ScalarProperty Name="IdFlightType" ColumnName="IdFlightType" />
+          <ScalarProperty Name="Flight_Type" ColumnName="Flight Type" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Pilots">
+      <EntityTypeMapping TypeName="Airline_ticketModel.Pilot">
+        <MappingFragment StoreEntitySet="Pilots">
+          <ScalarProperty Name="IdPilot" ColumnName="IdPilot" />
+          <ScalarProperty Name="Pilots_name" ColumnName="Pilots name" />
+          <ScalarProperty Name="Pilots_surname" ColumnName="Pilots surname" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Schedules">
+      <EntityTypeMapping TypeName="Airline_ticketModel.Schedule">
+        <MappingFragment StoreEntitySet="Schedules">
+          <ScalarProperty Name="IdSchedule" ColumnName="IdSchedule" />
+          <ScalarProperty Name="Date_In" ColumnName="Date In" />
+          <ScalarProperty Name="Date_out" ColumnName="Date out" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tickets">
+      <EntityTypeMapping TypeName="Airline_ticketModel.Ticket">
+        <MappingFragment StoreEntitySet="Tickets">
+          <ScalarProperty Name="IdTicket" ColumnName="IdTicket" />
+          <ScalarProperty Name="Code_of_Ticket" ColumnName="Code of Ticket" />
+          <ScalarProperty Name="FlightTypesId" ColumnName="FlightTypesId" />
+          <ScalarProperty Name="SchedulesId" ColumnName="SchedulesId" />
+          <ScalarProperty Name="AirplanePilotsId" ColumnName="AirplanePilotsId" />
+          <ScalarProperty Name="CitiesId" ColumnName="CitiesId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
